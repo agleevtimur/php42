@@ -3,9 +3,12 @@ function generator($line, $weights) {
     if (count($line) == 0 || count($weights) == 0 || count($line) != count($weights))
         return false;
     $data = array_combine($line, modify($weights));
-    $rand = mt_rand(0, $data[array_key_last($data)]);
+    $rand = mt_rand(0, array_sum($weights));
     // this is analogue of counting probability
     foreach ($data as $key => $value){
+        if($rand == $value and end($arr) != $value) { // last interval must conclude last value (example [0,1) [1,3) and [3,9]
+            continue;
+        }
         if($rand <= $value)
         { // rand is around this interval - so its line is result
             yield $key;
@@ -25,28 +28,29 @@ function modify(array $arr) : array { // difference between intervals is its wei
     return $arr;
 }
 function test(array $arr): array {
-    $count = array_fill(0, count($arr), 0);
+    $count = array_fill_keys(array_keys($arr), 0);
+    //$count = array_fill(0, count($arr), 0);
     for($i = 0; $i < 10000; $i++){
         $rand = mt_rand(0, $arr[array_key_last($arr)]);
-        $index = 0;
+
         foreach ($arr as $key => $value){
-            if($rand <= $value) {
-                $count[$index]++;
+            if($rand == $value and end($arr) != $value) { // last interval must conclude last value (example [0,1) [1,3) and [3,9]
+                continue;
+            }
+            if($rand <= $value) { // rand is around this interval - so its line is result
+                $count[$key]++;
                 break;
             }
-            $index++;
         }
     }
     return $count;
 }
 function cus_serialize($arr, $count) { //preparing to be serialized to json
-    $index = 0;
     $output = [];
     foreach($arr as $line => $weight){
         array_push($output,["text" => $line,
-                "count" => $count[$index],
-                "calculated_probability" => round($count[$index]/10000, 3)]);
-        $index++;
+                "count" => $count[$line],
+                "calculated_probability" => round($count[$line]/10000, 2)]);
     }
     return $output;
 }
