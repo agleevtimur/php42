@@ -29,6 +29,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -41,6 +42,8 @@
       <option name="presentableId" value="Default" />
       <updated>1583429366824</updated>
       <workItem from="1583429368256" duration="4849000" />
+      <workItem from="1583485980681" duration="14000" />
+      <workItem from="1584016567891" duration="4883000" />
     </task>
     <servers />
   </component>
@@ -52,5 +55,9 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680@0.0.1280.680" timestamp="1583429546581" />
+    <state x="337" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1583485981841">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="337" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1583485981841" />
   </component>
 </project>
