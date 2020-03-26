@@ -12,7 +12,13 @@ if (isset($_REQUEST['input'])) {
     });
 
     $result = array_merge($input, $clone_arr);
+    var_dump($result);
+    echo '<br>';
     uasort($result, function ($r1, $r2) {
+        var_dump($r1[1]);
+        echo ' ';
+        var_dump($r2[1]);
+        echo '<br>';
         if (isset($r1[1]) && isset($r2[1]))
             return strcmp($r1[1], $r2[1]);// comparing by 2nd words
         else return 0;
