@@ -6,9 +6,8 @@ function generator($line, $weights) {
     $rand = mt_rand(0, array_sum($weights));
     // this is analogue of counting probability
     foreach ($data as $key => $value){
-        if($rand == $value and end($arr) != $value) { // last interval must conclude last value (example [0,1) [1,3) and [3,9]
+        if($rand == $value and end($data) != $value) // last interval must conclude last value (example [0,1) [1,3) and [3,9]
             continue;
-        }
         if($rand <= $value)
         { // rand is around this interval - so its line is result
             yield $key;
@@ -30,6 +29,7 @@ function modify(array $arr) : array { // difference between intervals is its wei
 function test(array $arr): array {
     $count = array_fill_keys(array_keys($arr), 0);
     //$count = array_fill(0, count($arr), 0);
+    var_dump($arr);
     for($i = 0; $i < 10000; $i++){
         $rand = mt_rand(0, $arr[array_key_last($arr)]);
 
