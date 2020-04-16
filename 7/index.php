@@ -1,4 +1,5 @@
 <?php
+include('index.html');
 ini_set('max_execution_time', 400);
 function show_ping($url) {
   echo 'pinging...</br>';
