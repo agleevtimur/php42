@@ -1,0 +1,15 @@
+.form {
+  display: inline-block;
+  padding: 30px 20px;
+  border: 1px solid gray;
+}
+.hidden-radio {
+  display: none;
+  padding-left: 40px;
+}
+.hidden-input {
+  display: none;
+}
+.open {
+  display: block;
+}

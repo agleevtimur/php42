@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="index.php" class="form" method="POST">
+    <label for="2">Введите текст:</label><br>
+    <textarea name="text" cols="30" rows="7" id="2"required></textarea>
+    <p><input type="radio" name="log" value="file" required>Записать в файл</p>
+    <div class="hidden-input">
+      <label for="1">Введите имя файла</label>
+      <input type="text" name="file-name" id="1" placeholder="xxx.txt">
+    </div>
+    <p><input type="radio" name="log" value="browser">Вывести в браузере</p>
+    <div class="hidden-radio">
+      <span>Формат вывода</span>
+      <p><input type="radio" name="mode" value="1">дата и время</p>
+      <p><input type="radio" name="mode" value="2">время</p>
+      <p><input type="radio" name="mode" value="3" checked>ничего</p>
+    </div>
+    <input type="submit" value="Отправить">
+  </form>
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('change', open);
+    function open(event) {
+      const target = event.target;
+      const radio = document.querySelector('.hidden-radio');
+      const input = document.querySelector('.hidden-input');
+      if (target.hasAttribute('value') && target.getAttribute('value') === "browser") {
+        radio.classList.add('open');
+        input.classList.remove('open');
+      }
+      if (target.hasAttribute('value') && target.getAttribute('value') === "file") {
+        radio.classList.remove('open');
+        input.classList.add('open');
+      }
+    }
+  </script>
+</body>
+
+</html>
