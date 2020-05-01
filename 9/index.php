@@ -4,19 +4,7 @@ include('index.html');
 include('AbstractLogger.php');
 include('EchoPrint.php');
 include('FilePrint.php');
-
-class Controller
-{
-  private $_logger;
-  public function __construct(AbstractLogger $logger)
-  {
-    $this->_logger = $logger;
-  }
-  public function Run($text)
-  {
-    $this->_logger->Log($text);
-  }
-}
+include('Controller.php');
 
 $logger;
 if (isset($_REQUEST['log'])) {
