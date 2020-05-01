@@ -7,9 +7,9 @@ abstract class AbstractLogger
     $this->_log_file = fopen('log.txt',"w");
   }
   abstract protected function Print(string $text);
-  public function Log($text)
+  public function Log($text) // вывод в лог
   {
-    $this->Print($text);
+    $this->Print($text); // каждый класс имеет свой Print
     $lines = explode(PHP_EOL,$text);
     if ($this->_log_file)
     {
