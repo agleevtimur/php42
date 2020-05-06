@@ -5,17 +5,19 @@ class FilePrint extends AbstractLogger
   public function __construct(string $fileName)
   {
     $this->_file = fopen($fileName, "w");
-    parent::__construct();
   }
-  protected function Print(string $text)
+  protected function Print($text)
   {
-    fwrite($this->_file, $text);
+    $result = '';
+    foreach($text as $line){
+      $result .= PHP_EOL . $line; 
+    }
+    fwrite($this->_file, $result);
   }
   function __destruct()
   {
     echo 'Успешно записано в файл';
     fclose($this->_file);
-    parent::__destruct();
   }
 
 }

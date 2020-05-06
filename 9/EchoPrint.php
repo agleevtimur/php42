@@ -5,10 +5,13 @@ class EchoPrint extends AbstractLogger
   public function __construct($mode)
   {
     $this->_mode = $mode;
-    parent::__construct();
   }
   protected function Print($text)
   {
+    $result = '';
+    foreach($text as $line){
+      $result .= "<br>" . $line; 
+    }
     $temp_date = '';
     switch ($this->_mode)
     {
@@ -20,11 +23,7 @@ class EchoPrint extends AbstractLogger
         break;
       default: break;
     }
-    echo $temp_date . $text;
-  }
-  public function __destruct()
-  {
-    parent::__destruct();
+    echo $temp_date . $result;
   }
 }
 ?>

@@ -1,29 +1,18 @@
 <?php
 abstract class AbstractLogger
 {
-  private $_log_file;
-  protected function __construct()
-  {
-    $this->_log_file = fopen('log.txt',"w");
-  }
-  abstract protected function Print(string $text);
+  abstract protected function Print($text);
   public function Log($text) // вывод в лог
   {
-    $this->Print($text); // каждый класс имеет свой Print
+    $result = [];
     $lines = explode(PHP_EOL,$text);
-    if ($this->_log_file)
-    {
-      foreach ($lines as $line) {
-        $message = 'Строка ' . '"' . $line . '"';
-        if (!preg_match("/(?=(.*[[:upper:]].*))/", $line)) $message .= ' не';
-        $message .= ' содержит заглавные буквы' . PHP_EOL;
-        fwrite($this->_log_file, $message);
-      }
+    foreach ($lines as $line) {
+      $message = 'Строка ' . '"' . $line . '"';
+      if (!preg_match("/(?=(.*[[:upper:]].*))/", $line)) $message .= ' не';
+      $message .= ' содержит заглавные буквы';
+      array_push($result,$message);
     }
-  }
-  protected function __destruct()
-  {
-    fclose($this->_log_file);
+    $this->Print($result); // каждый класс имеет свой Print
   }
 }
 ?>
