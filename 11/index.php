@@ -17,6 +17,6 @@ spl_autoload_register(
 );
 
 require_once realpath("vendor/autoload.php");
-$logger = new CustomLogger('log.json');
+$logger = new CustomLogger('log/log.json');
 $foo = new Foo($logger);
 $foo->doSomething();
