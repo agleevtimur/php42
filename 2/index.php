@@ -1,5 +1,5 @@
 <?php
-include("form.html");
+//include("form.html");
 if (isset($_REQUEST['text'])) {
     $text = (string)$_REQUEST['text'];
     function rephrase($item)
