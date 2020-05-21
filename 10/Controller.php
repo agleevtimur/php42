@@ -1,13 +1,10 @@
 <?php
 use Exceptions as Ex;
 class Controller implements IController
-{ // 4 метода, которые случайно выкидывают 2 исключения
-  public array $Exceptions;
-  private $rnd;
+{ // 4 метода, которые случайнthrow newrivate $rnd;
   function methodOne()
   {
-    $this->rnd = $this->getRandom();
-    $this->makeTwoRndExceptions();
+    $this->makeRndExceptions();
   }
   function methodTwo()
   {
@@ -21,43 +18,25 @@ class Controller implements IController
   {
     $this->methodOne();
   }
-  private function getRandom():int
-  {
-    return rand(1,10);
-  }
-  private function makeTwoRndExceptions()
+  private function makeRndExceptions()
   { // различные попарные комбинации исключений
-    switch ($this->rnd) {
+    $rnd = rand(1,5);
+    switch ($rnd) {
       case '1':
-        $this->Exceptions = array(new Ex\ExceptionOne(), new Ex\ExceptionTwo());
+        throw new Ex\ExceptionOne();
         break;
       case '2':
-        $this->Exceptions = array(new Ex\ExceptionOne(), new Ex\ExceptionThree());
+        throw new Ex\ExceptionTwo();
         break;
       case '3':
-        $this->Exceptions = array(new Ex\ExceptionOne(), new Ex\ExceptionFour());
+        throw new Ex\ExceptionThree();
         break;
       case '4':
-        $this->Exceptions = array(new Ex\ExceptionOne(), new Ex\ExceptionFive());
+        throw new Ex\ExceptionFour();
         break;
       case '5':
-        $this->Exceptions = array(new Ex\ExceptionTwo(), new Ex\ExceptionThree());
+        throw new Ex\ExceptionFive();
         break;
-      case '6':
-        $this->Exceptions = array(new Ex\ExceptionTwo(), new Ex\ExceptionFour());
-        break;
-      case '7':
-        $this->Exceptions = array(new Ex\ExceptionTwo(), new Ex\ExceptionFive());
-        break;
-      case '8':
-        $this->Exceptions = array(new Ex\ExceptionThree(), new Ex\ExceptionFour());
-      break;
-      case '9':
-        $this->Exceptions = array(new Ex\ExceptionThree(), new Ex\ExceptionFive());
-        break;
-      case '10':
-        $this->Exceptions = array(new Ex\ExceptionFour(), new Ex\ExceptionFive());
-      break;
       default:
         break;
     }
