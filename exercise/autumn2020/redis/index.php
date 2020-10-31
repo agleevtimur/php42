@@ -2,32 +2,31 @@
 
 declare(strict_types=1);
 
-$redis = setRedisServer();
+$redis = connectRedisServer();
 
-if ($_POST !== []) {
-    $name = getRequestData('name');
-    $comment = getRequestData('comment');
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    $fields = $redis->hgetall('comments');
 
-    if (isset($name) && isset($comment)) {
-        $redis->incr('comments_count');
-        $redis->hset('comments', $redis->get('comments_count'), serialize(['name' => $name, 'comment' => $comment]));
+    require 'front/header.html';
+    require 'front/form.html';
+
+    foreach ($fields as $field) {
+        $field = json_decode($field, true);
+        echoComment($field['name'], $field['comment'], $field['date']);
     }
+
+    require 'front/footer.html';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
+    $json = json_encode(['name' => $_POST['name'], 'comment' => $_POST['comment'], 'date' => date('d-m-Y h:i')]);
+    $redis->incr('comments_count');
+    $redis->hset('comments', $redis->get('comments_count'), $json);
+
+    echo $json;
+} else {
+    die('request error');
 }
 
-$fields = $redis->hgetall('comments');
-foreach ($fields as $field) {
-    $field = unserialize($field);
-    echo "{$field['name']} - {$field['comment']}\n";
-}
-
-
-
-function getRequestData(string $key): ?string
-{
-    return $_POST[$key] ?? null;
-}
-
-function setRedisServer(): Predis\Client
+function connectRedisServer(): Predis\Client
 {
     require 'vendor/autoload.php';
     Predis\Autoloader::register();
@@ -36,5 +35,16 @@ function setRedisServer(): Predis\Client
     }
     catch (Exception $e) {
         die($e->getMessage());
+
     }
+}
+
+function echoComment(string $name, string $text, string $date): void
+{
+    echo "<div class='comment'>
+        <h6>$name</h6>
+        <p>$text</p>
+        <span class='datetime'>$date</span>
+        <hr>
+    </div>";
 }
