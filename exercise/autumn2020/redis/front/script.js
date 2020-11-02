@@ -6,8 +6,8 @@ form.addEventListener('submit', async (event) => {
     const formData = new FormData(form);
 
     await sendAjax(formData)
-        .then(response => {
-            let comment = createComment(response['name'], response['comment'], response['date']);
+        .then(responseDate => {
+            let comment = createComment(formData.get('name'), formData.get('comment'), responseDate);
             comments.appendChild(comment);
             form.reset();
         })
@@ -25,6 +25,7 @@ function createComment(name, comment, date) {
     return div;
 }
 
+//returns date from server
 async function sendAjax(formData) {
     let response = await fetch('/index.php', {
         method: 'POST',
@@ -35,5 +36,5 @@ async function sendAjax(formData) {
         throw new Error('error in sendAjax');
     }
 
-    return (await response).json();
+    return (await response).text();
 }

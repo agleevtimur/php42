@@ -11,17 +11,18 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     require 'front/form.html';
 
     foreach ($fields as $field) {
-        $field = json_decode($field, true);
+        $field = unserialize($field);
         echoComment($field['name'], $field['comment'], $field['date']);
     }
 
     require 'front/footer.html';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
-    $json = json_encode(['name' => $_POST['name'], 'comment' => $_POST['comment'], 'date' => date('d-m-Y h:i')]);
+    $date = date('d-m-Y h:i');
+    $serializedData = serialize(['name' => $_POST['name'], 'comment' => $_POST['comment'], 'date' => $date]);
     $redis->incr('comments_count');
-    $redis->hset('comments', $redis->get('comments_count'), $json);
+    $redis->hset('comments', $redis->get('comments_count'), $serializedData);
 
-    echo $json;
+    echo $date;
 } else {
     die('request error');
 }
