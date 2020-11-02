@@ -12,7 +12,7 @@ form.addEventListener('submit', async (event) => {
             form.reset();
         })
         .catch(error => console.log(error));
-})
+});
 
 function createComment(name, comment, date) {
     let div = document.createElement('div');
