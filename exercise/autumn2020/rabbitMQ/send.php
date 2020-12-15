@@ -7,15 +7,15 @@ use PhpAmqpLib\Message\AMQPMessage;
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->exchange_declare('logs', 'fanout', false, false, false);
+$channel->queue_declare('logs', false, true, false, false);
 
 $data = implode(' ', array_slice($argv, 1));
 if (empty($data)) {
-$data = "Hello World!";
+    $data = "Hello World!";
 }
 $msg = new AMQPMessage($data);
 
-$channel->basic_publish($msg, 'logs');
+$channel->basic_publish($msg, '', 'logs');
 
 echo 'Sent ', $data, "\n";
 

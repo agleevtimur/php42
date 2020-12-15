@@ -6,22 +6,21 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->exchange_declare('logs', 'fanout', false, false, false);
-
-list($queue_name) = $channel->queue_declare("", false, false, true, false);
-
-$channel->queue_bind($queue_name, 'logs');
+$channel->queue_declare('logs', false, true, false, false);
 
 echo "Waiting for logs\n";
 
-$callback = function ($msg) use ($queue_name) {
-    $des = fopen("log.$queue_name", 'a');
-    fwrite($des, "$msg->body \n");
+$callback = function ($msg) {
+    $des = fopen("log{$msg->getConsumerTag()}", 'a');
+    fwrite($des, "$msg->body\n");
     echo "Message has been logged!\n";
     fclose($des);
+    $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 };
 
-$channel->basic_consume($queue_name, '', false, true, false, false, $callback);
+$rand = rand(0, 1000);
+$channel->basic_qos(null, 1, null);
+$channel->basic_consume('logs', $rand, false, false, false, false, $callback);
 
 while ($channel->is_consuming()) {
     $channel->wait();
