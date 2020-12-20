@@ -1,0 +1,5 @@
+composer.lock
+symfony.lock
+dump.rdb
+vendor
+var
