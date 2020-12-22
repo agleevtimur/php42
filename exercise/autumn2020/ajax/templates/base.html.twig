@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <textarea id="input" cols="30" rows="10"></textarea>
+            <button id="button">Add string field</button>
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('/script.js?ver=1') }}"></script>
+        {% endblock %}
+    </body>
+</html>
