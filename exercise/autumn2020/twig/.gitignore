@@ -3,3 +3,4 @@ symfony.lock
 dump.rdb
 vendor
 var
+.env
