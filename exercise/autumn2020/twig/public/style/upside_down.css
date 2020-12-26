@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container .form-wrapper {
+    order: 2;
+}
+
+.container .comments {
+    margin-top: 0;
+    margin-bottom: 100px;
+    order: 1;
+}

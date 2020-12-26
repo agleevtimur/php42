@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.comments {
+    margin-top: 0;
+}
+
+section {
+    width: 40%;
+}
+
+.comments-title {
+    margin-top: 0;
+}
+
+.form-wrapper {
+    margin: 0;
+}
