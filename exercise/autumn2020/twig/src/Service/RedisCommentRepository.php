@@ -11,7 +11,7 @@ class RedisCommentRepository implements ICommentRepository
 {
     private Client $redis;
 
-    private function __construct()
+    public function __construct()
     {
         $this->redis = new Client();
     }
